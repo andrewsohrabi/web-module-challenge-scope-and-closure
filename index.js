@@ -28,11 +28,14 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+      counter1 increases count by 1 each time by nesting counter() while counter2 trys to increase count outside of the fn, which does not work
+
   
   2. Which of the two uses a closure? How can you tell?
+      counter1 uses a closure as it has nested counter() inside and it accesses count inside of it
   
-  3. In what scenario would the counter1 code be preferable? In what scenario would 
-     counter2 be better?  
+  3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better?  
+      counter1 preferable if you want to make mulitple counters, counter2 if just one counter is necessary
 */
 
 // counter1 code
@@ -62,10 +65,12 @@ Use the inning function below to do the following:
 */
 
 function inning(/*Code Here*/){
-
+  return Math.floor(Math.random()*3);
     /*Code Here*/
 
 }
+
+//console.log(`This is the inning function returning a random score: ${inning()}`)
 
 /* Task 3: finalScore()
 Use the finalScore function below to do the following:
@@ -80,20 +85,45 @@ For example: invoking finalScore(inning, 9) might return this object:
 }
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(inningCB,inningsNum){
+  let teamScores = {
+    Home: 0,
+    Away: 0
+  }
+  for (let i = 0; i <= inningsNum;i++) {
+    teamScores.Home += inning()
+    teamScores.Away += inning()
 
+  }
+  return teamScores;
   /*Code Here*/
 
 }
 
+console.log(finalScore(inning,9));
+
 /* Task 4: 
 // create a function called getInningScore 
 // the function should take the inning function as an argument 
-// it should return an object with with a score for home and a score for away that that populates from invoking the inning callback. */
+// it should return an object with a score for home and a score for away that that populates from invoking the inning callback. */
 
-function getInningScore(/*Your Code Here */) {
+function getInningScore(inningCB) {
   /*Your Code Here */
+  let teamScores = {
+    Home: 0,
+    Away: 0
+  }
+
+  teamScores.Home += inning()
+  teamScores.Away += inning()
+  return teamScores;
 }
+console.log(getInningScore(inning));
+
+
+
+
+
 /* Task 5: scoreboard()
 Use the scoreboard function below to do the following:
   1. Receive a callback function, that you create, called `getInningScore`
